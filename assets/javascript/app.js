@@ -40,9 +40,9 @@ function getWeather() {
       // Display results to user.
       $('#humidity').text(weatherData.main.temp);
       $('#humidity').text(weatherData.main.humidity);
-      $('#visibility').text(weatherData.main.);
-      $('#rain').text(weatherData.main.);
-      $('#wind').text(weatherData.main.);
+      $('#visibility').text(weatherData.visibility);
+      $('#rain').text(weatherData.rain["1h"]);
+      $('#wind').text(weatherData.wind.speed + ' mph, ' + weatherData.wind.deg + ' deg');
       $('#weatherResults').fadeIn();
   });
 }
