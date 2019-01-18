@@ -28,6 +28,7 @@ function getWeather(topic) {
     //firebase setup
   });
 }
+
 // })
 
 //click function for mapping out run and calculating distance
