@@ -1,6 +1,7 @@
 // weather api
 // function getWeather() {
 //connect to firebase
+$('#weatherResults').hide();
 
 // Initialize Firebase
 var config = {
@@ -13,19 +14,36 @@ var config = {
 };
 firebase.initializeApp(config);
 let fireDB = firebase.database();
+
 // click function for getting weather conditions
 $("#getWeather").on("click", getWeather);
-function getWeather(topic) {
+function getWeather() {
+  // Build URL
+  var locationInput = $('#location').val()
   var ajaxUrl =
-    "https://openweathermap.org/find?q=" +
-    topic +
-    "&api_key=f4012622bd78ad3173b7526c476fb82a"; // test by throwing url into chrome
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    locationInput +
+    "&appid=f4012622bd78ad3173b7526c476fb82a"; // test by throwing url into chrome
+  
+  // Make AJAX call.
   $.ajax({
     //objects made up of methods, properties, and key value pairs
     url: ajaxUrl,
     method: "GET"
     //api key: f4012622bd78ad3173b7526c476fb82a
     //firebase setup
+  })
+
+  // Deal with response data.
+  .done(function(weatherData, status) {
+      console.log(weatherData);
+      // Display results to user.
+      $('#humidity').text(weatherData.main.temp);
+      $('#humidity').text(weatherData.main.humidity);
+      $('#visibility').text(weatherData.main.);
+      $('#rain').text(weatherData.main.);
+      $('#wind').text(weatherData.main.);
+      $('#weatherResults').fadeIn();
   });
 }
 
@@ -34,7 +52,7 @@ function getWeather(topic) {
 //click function for mapping out run and calculating distance
 $("#mapRun").on("click", mapWorkout);
 function mapWorkout() {
-  var ajaxUrl = "?q=" + topic + "&api_key=";
+  var ajaxUrl = "?q=" + topic + "&appid=";
   $.ajax({
     //objects made up of methods, properties, and key value pairs
     url: ajaxUrl,
@@ -43,4 +61,3 @@ function mapWorkout() {
 }
 
 //frebase push function
-fireDB.ref().push(newTrainInfo);
