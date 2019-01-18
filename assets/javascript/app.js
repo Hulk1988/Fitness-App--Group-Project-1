@@ -9,3 +9,19 @@ function getWeather() {
     //firebase setup
 
 }
+
+
+
+// map api info below
+
+// Name
+// skunk-works-athletic
+// Description
+// UCSD Fitness app project
+// https://igeolise.3scale.net/admin/applications/1409618176396
+// Application ID
+// d53c055c
+// This is the application ID, you should send with each API request.
+
+// Application Keys
+// 51bef4811479942b21857785dd3915ea
