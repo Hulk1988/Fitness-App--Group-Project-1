@@ -57,6 +57,11 @@ function mapWorkout() {
     //objects made up of methods, properties, and key value pairs
     url: ajaxUrl,
     method: "GET"
+    //api key: 254e20591b5de8ec660860b800176167
+
+    // Deal with response data.
+
+    // Display results to user.
   });
 }
 
