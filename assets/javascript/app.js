@@ -50,19 +50,10 @@ function getWeather() {
 // })
 
 //click function for mapping out run and calculating distance
-$("#mapRun").on("click", mapWorkout);
-function mapWorkout() {
-  var ajaxUrl = "?q=" + topic + "&appid=";
-  $.ajax({
-    //objects made up of methods, properties, and key value pairs
-    url: ajaxUrl,
-    method: "GET"
-    //api key: 254e20591b5de8ec660860b800176167
+$("#saveWorkout").on("click", saveWorkout);
+function saveWorkout() {
+  var distance = $(".mapbox-directions-route-summary").children('h1').text();
+    console.log(distance)
+   
+  }
 
-    // Deal with response data.
-
-    // Display results to user.
-  });
-}
-
-//frebase push function
