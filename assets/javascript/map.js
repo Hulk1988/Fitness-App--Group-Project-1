@@ -111,7 +111,7 @@ function initGmaps(){
     }),
     "top-left"
   );
-  var layerList = document.getElementById("#menu");
+  var layerList = document.getElementById("menu");
   var inputs = layerList.getElementsByTagName("input");
   function switchLayer(layer) {
     var layerId = layer.target.id;
@@ -120,7 +120,7 @@ function initGmaps(){
   for (var i = 0; i < inputs.length; i++) {
     inputs[i].onclick = switchLayer;
   }
-  var distanceContainer = document.getElementById("#distance");
+  var distanceContainer = document.getElementById("distance");
   // GeoJSON object to hold our measurement features
   var geojson = {
     type: "FeatureCollection",
