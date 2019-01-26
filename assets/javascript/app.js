@@ -2,6 +2,7 @@
 // function getWeather() {
 //connect to firebase
 $('#weatherResults').hide();
+var token = "pk.eyJ1IjoiYW5kcmV3anRob21zZW4iLCJhIjoiY2pyNXFjam03MjlnNzQ0c2VzNjIzcWdhdyJ9.OgdsY8LjrFyxmcmOYXuAoA";
 
 // Initialize Firebase
 var config = {
@@ -37,73 +38,114 @@ function getWeather() {
   .done(function(weatherData, status) {
       console.log(weatherData);
       // Display results to user.
-      $('#humidity').text(weatherData.main.temp);
-      $('#humidity').text(weatherData.main.humidity);
+      var tempKelvin = weatherData.main.temp;
+      var tempCelcius = tempKelvin - 273.15;
+      var tempFarenheit = roundTwoDecimals(tempCelcius * 9 / 5 + 32);
+      $('#temperature').text(tempFarenheit);
+      $('#humidity').text(weatherData.main.humidity + '%');
       $('#visibility').text(weatherData.visibility);
-      $('#rain').text(weatherData.rain["1h"]);
+      if (weatherData.hasOwnProperty('rain')) {    
+        $('#rain').text(weatherData.rain["1h"]);
+      } else {
+        $('#rain').text('No rain today. Great time for a run!');
+      }
       $('#wind').text(weatherData.wind.speed + ' mph, ' + weatherData.wind.deg + ' deg');
       $('#weatherResults').fadeIn();
   });
 }
 
+function roundTwoDecimals(num) {
+  return Math.floor((num * 100) / 100);
+}
+
 $("#saveWorkout").on("click", saveWorkout);
 function saveWorkout() {  
- var request = {
-  query: location
- };		
- var headers = {appid:"93383482",
-  Key:"254e20591b5de8ec660860b800176167"};
- $.ajax({
-   // The URL for the geocoding endpoint.
-   url : "http://api.traveltimeapp.com/v4/geocoding/search/",
-   // We need to send a GET request to it.
-   type: "get",
-   // The authentification headers.
-   "headers": headers,
-   data: request,
-   contentType: "application/json; charset=UTF-8",
-   // We handle the response here
-   success: function (data) {
-     // Here we handle the response with the coordinates for the location.	
- }});
- // The request for Time Map. Reference: http://docs.traveltimeplatform.com/reference/time-map/
-			
-var request = {
-	// This will be a search where we depart a specified time.
-	departure_searches: [ {
-		// The id is useful when you send multiple searches in one request. Since we create only one search it doesn't matter much since we expect only one result.
-		id: "first_location",
-		// The coordinates for the departure location in a hash. { lat: <lat>, lng: <lng> }
-		"coords": coords,
-		// The transportation type for this search. We will be using public transport. 
-		transportation: {
-			type: "public_transport"
-		},
-		// The departure time in an ISO format.
-		departure_time: departureTime,
-		// Travel time in seconds.
-		travel_time: travelTime
-	} ],
-	// We will not be creating any shapes with a specified arrival time in this example so the array is empty.
-	arrival_searches: [] 
+  var origin = directions.getOrigin().geometry.coordinates;
+  var destination = directions.getDestination().geometry.coordinates;
+  var originString = origin[0] + ',' + origin[1];
+  var destinationString = destination[0] + ',' + destination[1];
+  reverseGeocode(originString, function(originName) {
+    reverseGeocode(destinationString, function(destinationName) {
+      var el = $('<div>'
+        + originName + '<br>'
+        + destinationName + '<br>'
+        + durationString
+        + '</div>');
+      
+      $("#workout-response").append(el);
+    });
+  });
 };
-		
-			$.ajax({
-	// The URL for the Time Map endpoint.
-	url: "http://api.traveltimeapp.com/v4/time-map",
-	// We will need to send a POST request.
-	type: "post",
-	// The authentification headers.
-	"headers": headers,
-	// The request body in a JSON format.
-	data: JSON.stringify(request),
-	contentType: "application/json; charset=UTF-8",
-	success: function (data) {
-		// Here we handle the response from Time Map
-}
-		}); 
- 
-  };
-   
-  
 
+  
+// Given a set of coordinates
+function reverseGeocode(coordinateString, callback) {
+  var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+    + coordinateString 
+    + ".json?access_token="
+    + token;
+
+  $.ajax({
+    url: url
+  })
+  .done(function(response) {
+    console.log(response);
+    var placeName = response.features[0].place_name;
+
+    callback(placeName);
+  })
+}
+  
+	// 		$.ajax({
+	// // The URL for the Time Map endpoint.
+	// url: "http://api.traveltimeapp.com/v4/time-map",
+	// // We will need to send a POST request.
+	// type: "post",
+	// // The authentification headers.
+	// "headers": headers,
+	// // The request body in a JSON format.
+	// data: JSON.stringify(request),
+	// contentType: "application/json; charset=UTF-8",
+	// success: function (data) {
+// 	// 	// Here we handle the response from Time Map
+// }
+// 		}); 
+ 
+ // var request = {
+  //   query: location
+  // };		
+  // var headers = {appid:"93383482",
+  // Key:"254e20591b5de8ec660860b800176167"};
+  // $.ajax({
+  //   // The URL for the geocoding endpoint.
+  //   url : "http://api.traveltimeapp.com/v4/geocoding/search/",
+  //   // We need to send a GET request to it.
+  //   type: "get",
+  //   // The authentification headers.
+  //   "headers": headers,
+  //   data: request,
+  //   contentType: "application/json; charset=UTF-8",
+  //   // We handle the response here
+  //   success: function (data) {
+  //     // Here we handle the response with the coordinates for the location.	
+  // }});
+  // // The request for Time Map. Reference: http://docs.traveltimeplatform.com/reference/time-map/
+			
+  // var request = {
+  //   // This will be a search where we depart a specified time.
+  //   departure_searches: [ {
+  //     // The id is useful when you send multiple searches in one request. Since we create only one search it doesn't matter much since we expect only one result.
+  //     id: "first_location",
+  //     // The coordinates for the departure location in a hash. { lat: <lat>, lng: <lng> }
+  //     "coords": coords,
+  //     // The transportation type for this search. We will be using public transport. 
+  //     transportation: {
+  //       type: "public_transport"
+  //     },
+  //     // The departure time in an ISO format.
+  //     departure_time: departureTime,
+  //     // Travel time in seconds.
+  //     travel_time: travelTime
+  //   } ],
+  //   // We will not be creating any shapes with a specified arrival time in this example so the array is empty.
+  //   arrival_searches: [] 

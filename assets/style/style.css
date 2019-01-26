@@ -50,3 +50,8 @@ body {
     padding: 5px 10px;
     border-radius: 3px;
 }
+
+#workout-response {
+    color: white;
+    font-size: 20px;
+}
