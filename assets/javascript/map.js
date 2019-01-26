@@ -1,101 +1,8 @@
-// // The name of the starting location. We will have to geocode this to coordinates.
-// var startingLocation = "The White House, DC";
-// // The departure time in an ISO format.
-// var departureTime = "2018-07-04T09:00:00-0500";
-// // Travel time in seconds. We want 1 hour travel time so it is 60 minutes x 60 seconds.
-// var travelTime = 60*60; 
-
-
-// // These headers are needed to authenticate the request
-// var headers = {
-//  "X-Application-Id": "93383482",
-//  "X-Api-Key": "254e20591b5de8ec660860b800176167",
-//  "x-requested-with": "xhr",
-// };
-        
-// // Sends the geocoding request.
-// function sendGeocodingRequest(location) {
-//     // The request for the geocoder. Reference: http://docs.traveltimeplatform.com/reference/geocoding-search/
-//     var request = {
-//     query: location
-//     };		
-//     var originalURL = "http://api.traveltimeapp.com/v4/geocoding/search";
-//     var queryURL = "https://cors-anywhere.herokuapp.com/" + originalURL
-//     // var queryURL2 = "https://cors-anywhere.herokuapp.com/" + originalURL2
-//     $.ajax({
-//         url : queryURL,
-//         type: "get",
-//         headers: headers,
-//         data: request,
-//         contentType: "application/json; charset=UTF-8",
-//         success: sendTimeMapRequest
-//     });
-// };
-// //cross-origin request problem as CORS request because it's intended to be used with node.
-// // Trying to get the CORS anywhere heroku app to work. Ok with map API with integrated on HTML
-    
-
-// // Sends the request of the Time Map multipolygon.
-// function sendTimeMapRequest(geocodingResponse) {
-//     // The request for Time Map. Reference: http://docs.traveltimeplatform.com/reference/time-map/		
-//     var coords = data.features[0].geometry.coordinates;
-//         var latLng = { lat: coords[1], lng: coords[0] };
-    
-//     var request = {
-//         departure_searches: [ {
-//             id: "first_location",
-//             "coords": coords, 
-//             transportation: {
-//                 type: "public_transport"
-//             },
-//             departure_time: departureTime,
-//             travel_time: travelTime
-//         } ],
-//         arrival_searches: [] 
-//     };
-//     var queryURL2 = "http://api.traveltimeapp.com/v4/time-map";
-//     $.ajax({
-//         url: queryURL2,
-//         type: "post",
-//         headers: headers,
-//         data: JSON.stringify(request),
-//         contentType: "application/json; charset=UTF-8",
-//         success: drawTimeMap(setupMap([coords.lat, coords.lng]))
-//     });
-// }; 
-
-// // A helper function that converts [{lat: <lat>, lng: <lng>}, ...] to a [[<lat>, <lng>], ...] format.
-// // function ringCoordsHashToArray(ring) {
-// //     return ring.map((latLng) => { return [latLng.lat, latLng.lng]; } );
-// // };
-
-// // //Map set up
-// // function setupMap(markerCoords) {
-// //   var osmUrl="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";	
-// //   var osmTileLayer = L.tileLayer(osmUrl, {minZoom: 8, maxZoom: 15}); 
-// //   var map = L.map("map").addLayer(osmTileLayer);
-// //   L.marker(markerCoords).addTo(map);
-// //   return map;
-// // };
-
-// // // Draws the resulting multipolygon from the response on the map.
-// // function drawTimeMap(map) {
-// //     // We are returning a function so that it can be easily used in the success parameter of the ajax method.
-// //     return (response) => { 
-// //         // Reference for the response: http://docs.traveltimeplatform.com/reference/time-map/#response-body-json-attributes
-// //         var shapesCoords = response.results[0].shapes.map((polygon) => {
-// //             var shell = ringCoordsHashToArray(polygon.shell);
-// //             var holes = polygon.holes.map(ringCoordsHashToArray);
-// //             return [shell].concat(holes);	
-// //         })
-// //         var polygon = L.polygon(shapesCoords, {color: 'red'});
-// //         polygon.addTo(map);
-// //         map.fitBounds(polygon.getBounds());
-// //     };
-// // };
 
 // // // Begins the creation of the Time Map shape. 
 // sendGeocodingRequest(startingLocation);
+var directions;
+var durationString = null;
 function initGmaps(){
     mapboxgl.accessToken =
     "pk.eyJ1IjoiYW5kcmV3anRob21zZW4iLCJhIjoiY2pyNXFjam03MjlnNzQ0c2VzNjIzcWdhdyJ9.OgdsY8LjrFyxmcmOYXuAoA";
@@ -105,10 +12,17 @@ function initGmaps(){
     zoom: 13,
     center: [4.899, 52.372]
   });
+  directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken
+  });
+  directions.on('route', function(route) {
+    var durationSeconds = route.route[0].duration;
+    var durationHours = Math.floor(durationSeconds / 60 / 60);
+    var durationMinutes = roundTwoDecimals(((durationSeconds / 60 / 60) - durationHours) * 60);
+    durationString = durationHours + ' hours, ' + durationMinutes + ' minutes.';
+  });
   map.addControl(
-    new MapboxDirections({
-      accessToken: mapboxgl.accessToken
-    }),
+    directions,
     "top-left"
   );
   var layerList = document.getElementById("menu");
