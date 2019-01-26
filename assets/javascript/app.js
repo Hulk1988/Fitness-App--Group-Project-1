@@ -37,6 +37,7 @@ function getWeather() {
   // Deal with response data.
   .done(function(weatherData, status) {
       console.log(weatherData);
+      dynamicBkgrnd(weatherData.main.temp);
       // Display results to user.
       var tempKelvin = weatherData.main.temp;
       var tempCelcius = tempKelvin - 273.15;
@@ -45,7 +46,7 @@ function getWeather() {
       $('#humidity').text(weatherData.main.humidity + '%');
       $('#visibility').text(weatherData.visibility);
       if (weatherData.hasOwnProperty('rain')) {    
-        $('#rain').text(weatherData.rain["1h"]);
+        $('#rain').text(weatherData.rain[""]);
       } else {
         $('#rain').text('No rain today. Great time for a run!');
       }
@@ -149,3 +150,46 @@ function reverseGeocode(coordinateString, callback) {
   //   } ],
   //   // We will not be creating any shapes with a specified arrival time in this example so the array is empty.
   //   arrival_searches: [] 
+
+  // add to display results to user
+
+
+
+
+// add below closing tag in js
+
+
+  dynamicBkgrnd = function (kelvin) {
+    var farenheight = Math.floor(1.8 * (kelvin - 273) + 32);
+    console.log(farenheight);
+    if (farenheight >= -99 && farenheight <= 0) {
+        $('body').attr("id", "sub-zero");
+    }
+    if (farenheight >= 1 && farenheight <= 34) {
+        $('body').attr("id", "sub-zero");
+    }
+    if (farenheight >= 35 && farenheight <= 45) {
+        $('body').attr("id", "sub-fofi");
+    } 
+    else if (farenheight >= 46 && farenheight <= 55) {
+        $('body').attr("id", "sub-fifi");
+    } 
+    else if (farenheight >= 56 && farenheight <= 65) {
+        $('body').attr("id", "sub-sifi");
+    } 
+    else if (farenheight >= 66 && farenheight <= 75) {
+        $('body').attr("id", "sub-sefi");
+    } 
+    else if (farenheight >= 76 && farenheight <= 85) {
+        $('body').attr("id", "sub-eifi");
+    } 
+    else if (farenheight >= 86 && farenheight <= 95) {
+        $('body').attr("id", "sub-nifi");
+    } 
+    else if (farenheight >= 96 && farenheight <= 105) {
+        $('body').attr("id", "sub-onhufi");
+    } 
+    else if (farenheight >= 106 && farenheight <= 200) {
+        $('body').attr("id", "too-hot");
+    }
+};
