@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/bg.jpg")  
+    /* background-image: url("../images/bg.jpg")   */
 } */
 #mapHandler {
     position: relative;
@@ -55,3 +55,34 @@ body {
     color: white;
     font-size: 20px;
 }
+/* dynammic background changer */
+
+#sub-zero{
+    background-image: linear-gradient(white, blue, turquoise, black) ;
+    }
+    #freezing{
+        background-image: linear-gradient(turquoise, blue, royalblue, darkblue) ;
+    }
+    #sub-fofi{
+        background-image: linear-gradient(yellow, blue, darkslategrey) ;
+    }
+    #sub-fifi{
+        background-image: linear-gradient(green, goldenrod, black, black) ;
+    }
+    #sub-sifi{
+        background-image: linear-gradient(orange, brown, red, pink) ;
+       
+    }
+    #sub-sefi{
+        background-image: linear-gradient(lightblue, teal, blue, darkslategrey, white);
+    }
+    #sub-eifi{
+        background-image: linear-gradient(yellow, orange, red, black);
+    }
+    #sub-nifi{
+        background-image: linear-gradient(teal, yellowgreen, yellow,purple, darkblue );
+    }
+    #too-hot{
+        background-image: linear-gradient(orange, red, darkred);
+        
+    }
