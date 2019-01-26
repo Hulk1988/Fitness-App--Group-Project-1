@@ -103,7 +103,8 @@ button {
     margin-top: 5px;
 }
 
-#streets{
+.mapOps{
+    margin: 0px 50px 0px 5px;
     color: aqua !important;
-    padding: 50px;
+    padding-right: 5px;
 }
