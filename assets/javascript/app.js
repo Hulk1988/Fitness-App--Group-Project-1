@@ -46,7 +46,7 @@ function getWeather() {
       $('#humidity').text(weatherData.main.humidity + '%');
       $('#visibility').text(weatherData.visibility);
       if (weatherData.hasOwnProperty('rain')) {    
-        $('#rain').text(weatherData.rain[""]);
+        $('#rain').text(weatherData.rain);
       } else {
         $('#rain').text('No rain today. Great time for a run!');
       }
