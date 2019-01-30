@@ -58,27 +58,24 @@ function roundTwoDecimals(num) {
   return Math.floor((num * 100) / 100);
 }
 
-// $("#saveWorkout").on("click", saveWorkout);
-// function saveWorkout() {  
-//   var origin = directions.getOrigin().geometry.coordinates;
-//   var destination = directions.getDestination().geometry.coordinates;
-//   var originString = origin[0] + ',' + origin[1];
-//   var destinationString = destination[0] + ',' + destination[1];
-//   reverseGeocode(originString, function(originName) {
-//     reverseGeocode(destinationString, function(destinationName) {
-//       var el = $('<div>'
-//         + originName + '<br>'
-//         + destinationName + '<br>'
-//         + durationString
-//         + '</div>');
-      
-//       $("#workout-response").append(el);
-//     });
-//   });
-// };
+//click function responsible for saving the start and end addresses to the html page
+$("#saveWorkout").on("click", saveWorkout);
+function saveWorkout() {  
+  var origin = directions.getOrigin().geometry.coordinates;
+  var destination = directions.getDestination().geometry.coordinates;
+  var originString = origin[0] + ',' + origin[1];
+  var destinationString = destination[0] + ',' + destination[1];
+  reverseGeocode(originString, function(originName) {
+    reverseGeocode(destinationString, function(destinationName) {
+      var el = $('<div>'
+        + originName + '<br>'
+        + destinationName + '<br>'
+        + durationString
+        + '</div>');
+
 
   
-// Given a set of coordinates
+// Responsible for taking converting coordinates to an address for start and finish address
 function reverseGeocode(coordinateString, callback) {
   var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     + coordinateString 
@@ -96,7 +93,6 @@ function reverseGeocode(coordinateString, callback) {
   })
 }
 
-
   dynamicBkgrnd = function (kelvin) {
     var farenheight = Math.floor(1.8 * (kelvin - 273) + 32);
     console.log(farenheight);
@@ -105,7 +101,7 @@ function reverseGeocode(coordinateString, callback) {
         
     }
     if (farenheight >= 1 && farenheight <= 34) {
-        $('body').attr("id", "sub-zero");
+        $('body').attr("id", "freezing");
     }
     if (farenheight >= 35 && farenheight <= 45) {
         $('body').attr("id", "sub-fofi");
@@ -131,4 +127,40 @@ function reverseGeocode(coordinateString, callback) {
     else if (farenheight >= 106 && farenheight <= 200) {
         $('body').attr("id", "too-hot");
     }
+};
+
+//Declaring workoutTips dynamic weather conditions
+dynamicworkout = function (tips) {
+  $("#rain").text("Tips:");
+
+  if (farenheight >= -99 && farenheight <= 0) {
+      $('rain').attr("id", "sub-zero-1");
+  }
+  if (farenheight >= 1 && farenheight <= 34) {
+      $('rain').attr("id", "sub-zero");
+  }
+  if (farenheight >= 35 && farenheight <= 45) {
+      $('rain').attr("id", "sub-fofi-1");
+  } 
+  else if (farenheight >= 46 && farenheight <= 55) {
+      $('rain').attr("id", "sub-fifi");
+  } 
+  else if (farenheight >= 56 && farenheight <= 65) {
+      $('rain').attr("id", "sub-sifi");
+  } 
+  else if (farenheight >= 66 && farenheight <= 75) {
+      $('rain').attr("id", "sub-sefi");
+  } 
+  else if (farenheight >= 76 && farenheight <= 85) {
+      $('rain').attr("id", "sub-eifi");
+  } 
+  else if (farenheight >= 86 && farenheight <= 95) {
+      $('rain').attr("id", "sub-nifi");
+  } 
+  else if (farenheight >= 96 && farenheight <= 105) {
+      $('rain').attr("id", "sub-onhufi");
+  } 
+  else if (farenheight >= 106 && farenheight <= 200) {
+      $('rain').attr("id", "too-hot");
+  }
 };
