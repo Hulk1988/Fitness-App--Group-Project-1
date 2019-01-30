@@ -1,6 +1,51 @@
 <!DOCTYPE html>
 <html>
 
+  <body>
+      <div id="mapHandler">
+          <div id="map" style="width: 550px; height: 450px;">
+          </div>
+          <div id="distance" class="distance-container"></div>
+      </div>
+  
+      <div class="container" id="menu">
+        <input
+          id="basic"
+          type="radio"
+          name="rtoggle"
+          value="basic"
+          checked="checked"
+        />
+        <label for="basic">basic</label>
+        <input id="streets" type="radio" name="rtoggle" value="streets" />
+        <label for="streets">streets</label>
+        <input id="bright" type="radio" name="rtoggle" value="bright" />
+        <label for="bright">bright</label>
+        <input id="light" type="radio" name="rtoggle" value="light" />
+        <label for="light">light</label>
+        <input id="dark" type="radio" name="rtoggle" value="dark" />
+        <label for="dark">dark</label>
+        <input id="satellite" type="radio" name="rtoggle" value="satellite" />
+        <label for="satellite">satellite</label>
+      </div>
+      <br />
+    <div>
+        <div id="map" style="height: 100%;"></div>
+      <div class="container" id="userInputContainer">
+        <input type="text" id="location" placeholder="your location" />
+        <button id="getWeather">Check Weather</button>
+        <input type="text" id="userLocation" placeholder="your location" />
+        <button id="saveWorkout">Save Run Information</button>
+      </div>
+      <br />
+      <div class="container" id="resultsHandler">
+        <div>Temperature: <span id="temperature"></span></div>
+        <div>Humidity: <span id="humidity"></span></div>
+        <div>Visibility: <span id="visibility"></span></div>
+        <div>Rain: <span id="rain"></span></div>
+        <div>Wind: <span id="wind"></span></div>
+      </div>
+
 <head>
   <title>Skunk Works Athletic</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -20,6 +65,7 @@
 <body>
   <div id="mapHandler">
     <div id="map" style="width: 550px; height: 450px;">
+
     </div>
     <div id="distance" class="distance-container"></div>
   </div>

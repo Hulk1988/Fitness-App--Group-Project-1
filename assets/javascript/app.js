@@ -58,7 +58,7 @@ function getWeather() {
 function roundTwoDecimals(num) {
   return Math.floor((num * 100) / 100);
 }
-
+//click function responsible for saving the start and end addresses to the html page
 $("#saveWorkout").on("click", saveWorkout);
 function saveWorkout() {  
   var origin = directions.getOrigin().geometry.coordinates;
@@ -79,7 +79,7 @@ function saveWorkout() {
 };
 
   
-// Given a set of coordinates
+// Responsible for taking converting coordinates to an address for start and finish address
 function reverseGeocode(coordinateString, callback) {
   var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     + coordinateString 
@@ -96,69 +96,7 @@ function reverseGeocode(coordinateString, callback) {
     callback(placeName);
   })
 }
-  
-	// 		$.ajax({
-	// // The URL for the Time Map endpoint.
-	// url: "http://api.traveltimeapp.com/v4/time-map",
-	// // We will need to send a POST request.
-	// type: "post",
-	// // The authentification headers.
-	// "headers": headers,
-	// // The request body in a JSON format.
-	// data: JSON.stringify(request),
-	// contentType: "application/json; charset=UTF-8",
-	// success: function (data) {
-// 	// 	// Here we handle the response from Time Map
-// }
-// 		}); 
- 
- // var request = {
-  //   query: location
-  // };		
-  // var headers = {appid:"93383482",
-  // Key:"254e20591b5de8ec660860b800176167"};
-  // $.ajax({
-  //   // The URL for the geocoding endpoint.
-  //   url : "http://api.traveltimeapp.com/v4/geocoding/search/",
-  //   // We need to send a GET request to it.
-  //   type: "get",
-  //   // The authentification headers.
-  //   "headers": headers,
-  //   data: request,
-  //   contentType: "application/json; charset=UTF-8",
-  //   // We handle the response here
-  //   success: function (data) {
-  //     // Here we handle the response with the coordinates for the location.	
-  // }});
-  // // The request for Time Map. Reference: http://docs.traveltimeplatform.com/reference/time-map/
-			
-  // var request = {
-  //   // This will be a search where we depart a specified time.
-  //   departure_searches: [ {
-  //     // The id is useful when you send multiple searches in one request. Since we create only one search it doesn't matter much since we expect only one result.
-  //     id: "first_location",
-  //     // The coordinates for the departure location in a hash. { lat: <lat>, lng: <lng> }
-  //     "coords": coords,
-  //     // The transportation type for this search. We will be using public transport. 
-  //     transportation: {
-  //       type: "public_transport"
-  //     },
-  //     // The departure time in an ISO format.
-  //     departure_time: departureTime,
-  //     // Travel time in seconds.
-  //     travel_time: travelTime
-  //   } ],
-  //   // We will not be creating any shapes with a specified arrival time in this example so the array is empty.
-  //   arrival_searches: [] 
-
-  // add to display results to user
-
-
-
-
-// add below closing tag in js
-
-
+  // dynamic background implimented to change colors based on the real-time weather results for city searched.
   dynamicBkgrnd = function (kelvin) {
     var farenheight = Math.floor(1.8 * (kelvin - 273) + 32);
     console.log(farenheight);
@@ -166,7 +104,7 @@ function reverseGeocode(coordinateString, callback) {
         $('body').attr("id", "sub-zero");
     }
     if (farenheight >= 1 && farenheight <= 34) {
-        $('body').attr("id", "sub-zero");
+        $('body').attr("id", "freezing");
     }
     if (farenheight >= 35 && farenheight <= 45) {
         $('body').attr("id", "sub-fofi");
@@ -192,4 +130,40 @@ function reverseGeocode(coordinateString, callback) {
     else if (farenheight >= 106 && farenheight <= 200) {
         $('body').attr("id", "too-hot");
     }
+};
+
+//Declaring workoutTips dynamic weather conditions
+dynamicworkout = function (tips) {
+  $("#rain").text("Tips:");
+
+  if (farenheight >= -99 && farenheight <= 0) {
+      $('rain').attr("id", "sub-zero-1");
+  }
+  if (farenheight >= 1 && farenheight <= 34) {
+      $('rain').attr("id", "sub-zero");
+  }
+  if (farenheight >= 35 && farenheight <= 45) {
+      $('rain').attr("id", "sub-fofi-1");
+  } 
+  else if (farenheight >= 46 && farenheight <= 55) {
+      $('rain').attr("id", "sub-fifi");
+  } 
+  else if (farenheight >= 56 && farenheight <= 65) {
+      $('rain').attr("id", "sub-sifi");
+  } 
+  else if (farenheight >= 66 && farenheight <= 75) {
+      $('rain').attr("id", "sub-sefi");
+  } 
+  else if (farenheight >= 76 && farenheight <= 85) {
+      $('rain').attr("id", "sub-eifi");
+  } 
+  else if (farenheight >= 86 && farenheight <= 95) {
+      $('rain').attr("id", "sub-nifi");
+  } 
+  else if (farenheight >= 96 && farenheight <= 105) {
+      $('rain').attr("id", "sub-onhufi");
+  } 
+  else if (farenheight >= 106 && farenheight <= 200) {
+      $('rain').attr("id", "too-hot");
+  }
 };

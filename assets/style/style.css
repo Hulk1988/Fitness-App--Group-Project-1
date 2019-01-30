@@ -143,3 +143,34 @@ button {
         
     }
 
+
+
+#sub-zero{
+content: " Full leg | base layer | Gloves | wind jacket"; 
+}
+#freezing-1{
+content: " Tights | shorts | wind vest";
+}
+#sub-fofi-1{
+content: " Tights | thin-layer shorts | hat | a wind vest";
+}
+#sub-fifi-1{
+content: " Shorts | long-sleeve | tech shirt";
+}
+#sub-sifi-1{
+content: " T-shirt | shorts";
+
+}
+#sub-sefi-1{
+content: " Thin shorts | breatheable tech shirt";
+}
+#sub-eifi-1{
+content: " Thin shorts | tank top, sun block";
+}
+#sub-nifi-1{
+content: " Thin shorts | sun block | shirt optional";
+}
+#too-hot-1{
+content: " Thin shorts | sun block | shirt optional";
+
+}
