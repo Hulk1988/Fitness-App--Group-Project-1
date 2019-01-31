@@ -3,7 +3,6 @@
 //connect to firebase
 $('#weatherResults').hide();
 var token = "pk.eyJ1IjoiYW5kcmV3anRob21zZW4iLCJhIjoiY2pyNXFjam03MjlnNzQ0c2VzNjIzcWdhdyJ9.OgdsY8LjrFyxmcmOYXuAoA";
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyDj3IyQilG9_31NE5FHhFzVK_TJRNWcHEE",
@@ -51,13 +50,14 @@ function getWeather() {
         $('#rain').text('No rain today. Great time for a run!');
       }
       $('#wind').text(weatherData.wind.speed + ' mph, ' + weatherData.wind.deg + ' deg');
-      $('#weatherResults').fadeIn();
+      $('#weatherResults').show()
   });
 }
 
 function roundTwoDecimals(num) {
   return Math.floor((num * 100) / 100);
 }
+
 //click function responsible for saving the start and end addresses to the html page
 $("#saveWorkout").on("click", saveWorkout);
 function saveWorkout() {  
@@ -72,11 +72,7 @@ function saveWorkout() {
         + destinationName + '<br>'
         + durationString
         + '</div>');
-      
-      $("#workout-response").append(el);
-    });
-  });
-};
+
 
   
 // Responsible for taking converting coordinates to an address for start and finish address
@@ -96,12 +92,13 @@ function reverseGeocode(coordinateString, callback) {
     callback(placeName);
   })
 }
-  // dynamic background implimented to change colors based on the real-time weather results for city searched.
+
   dynamicBkgrnd = function (kelvin) {
     var farenheight = Math.floor(1.8 * (kelvin - 273) + 32);
     console.log(farenheight);
     if (farenheight >= -99 && farenheight <= 0) {
         $('body').attr("id", "sub-zero");
+        
     }
     if (farenheight >= 1 && farenheight <= 34) {
         $('body').attr("id", "freezing");
