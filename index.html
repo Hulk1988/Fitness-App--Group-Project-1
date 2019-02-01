@@ -1,51 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-  <body>
-      <div id="mapHandler">
-          <div id="map" style="width: 550px; height: 450px;">
-          </div>
-          <div id="distance" class="distance-container"></div>
-      </div>
-  
-      <div class="container" id="menu">
-        <input
-          id="basic"
-          type="radio"
-          name="rtoggle"
-          value="basic"
-          checked="checked"
-        />
-        <label for="basic">basic</label>
-        <input id="streets" type="radio" name="rtoggle" value="streets" />
-        <label for="streets">streets</label>
-        <input id="bright" type="radio" name="rtoggle" value="bright" />
-        <label for="bright">bright</label>
-        <input id="light" type="radio" name="rtoggle" value="light" />
-        <label for="light">light</label>
-        <input id="dark" type="radio" name="rtoggle" value="dark" />
-        <label for="dark">dark</label>
-        <input id="satellite" type="radio" name="rtoggle" value="satellite" />
-        <label for="satellite">satellite</label>
-      </div>
-      <br />
-    <div>
-        <div id="map" style="height: 100%;"></div>
-      <div class="container" id="userInputContainer">
-        <input type="text" id="location" placeholder="your location" />
-        <button id="getWeather">Check Weather</button>
-        <input type="text" id="userLocation" placeholder="your location" />
-        <button id="saveWorkout">Save Run Information</button>
-      </div>
-      <br />
-      <div class="container" id="resultsHandler">
-        <div>Temperature: <span id="temperature"></span></div>
-        <div>Humidity: <span id="humidity"></span></div>
-        <div>Visibility: <span id="visibility"></span></div>
-        <div>Rain: <span id="rain"></span></div>
-        <div>Wind: <span id="wind"></span></div>
-      </div>
-
 <head>
   <title>Skunk Works Athletic</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -53,7 +8,7 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css"
     type="text/css" />
-  <link rel="stylesheet" href="assets/style/style.css" />
+  <link rel="stylesheet" href="./assets/style/style.css" />
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js"></script>
@@ -63,9 +18,9 @@
 </head>
 
 <body>
+
   
     <div class="container" id="menu">
-        <div class="row">
     
         <span class="mapOps">Basic <input id="basic" 
                                     type="radio" 
@@ -73,124 +28,95 @@
                                     value="basic" 
                                     checked="checked"
                                   for="checked" />
-        </span>
-                                  
     
         <span class="mapOps">Street <input id="streets" 
                                     type="radio" 
                                     name="rtoggle" 
                                     value="streets"
                                     for="streets" />
-                                    </span>
         
         <span class="mapOps">Bright <input id="bright" 
                                      type="radio" 
                                      name="rtoggle" 
                                      value="bright"
                                      for="bright" />
-                                     </span>
     
         <span class="mapOps">Light <input id="light" 
                                      type="radio" 
                                      name="rtoggle" 
                                      value="light"
                                      for="light" />
-                                     </span>
     
         <span class="mapOps">Dark <input id="dark" 
                                      type="radio" 
                                      name="rtoggle" 
                                      value="dark"
                                      for="dark" />
-                                     </span>
     
         <span class="mapOps">Satalite <input id="satellite" 
                                      type="radio" 
                                      name="rtoggle" 
                                      value="satellite"
                                      for="satellite" />
-    
+
         
-     
-    </span>
-  <div id="mapHandler">
-
- 
-    <div id='over-map'>
-   
-      <div id="map"></div></div>
-
-    <div id="map" style="width: 550px; height: 450px;">
-
-    </div>
-    <div id="distance" class="distance-container"></div>
-  </div>
-
-  <div class="container" id="menu">
-    <span class="mapOps"><input id="basic" type="radio" name="rtoggle" value="basic" checked="checked" />
-      <label for="basic">basic</label></span>
-
-    <span class="mapOps"><input id="streets" type="radio" name="rtoggle" value="streets" />
-      <label for="streets">streets</label></span>
-
+      </div>
     
-        <div id="distance" class="distance-container"></div>
+  <div id="mapHandler">
+  <div id='over-map'>
+    <div id="map"></div></div>
+    <div id="distance" class="distance-container"></div>
         <!--  -->
-            <ul id="ticker01">
-      
-                <li>
-                    <div>Temperature: <span id="temperature"></span></div>
-                </li>
-                <li>
-                  <div> Humidity: <span id="humidity"></span>  </div>
-                </li>   
-                <li>
-                  <div>Visibility: <span id="visibility"></span></div>
-                </li>
-                <li>
-                    <div>Wind: <span id="wind"></span></div>
-                </li>    
-                <li>
-                  <div>Rain: <span id="rain"></span></div>
-                </li>
-            
-            </ul>
+        <ul id="ticker01">
+   
+            <li>
+                <div>Temperature: <span id="temperature"></span></div>
+            </li>
+            <li>
+               <div> Humidity: <span id="humidity"></span>  </div>
+            </li>   
+            <li>
+              <div>Visibility: <span id="visibility"></span></div>
+            </li>
+            <li>
+                <div>Wind: <span id="wind"></span></div>
+            </li>    
+            <li>
+              <div>Rain: <span id="rain"></span></div>
+            </li>
+        
+        </ul>
         
         <!--  -->
   </div>
 
   <br />
   <div>
-    <br>
+    
     
     <div class="container" id="userInputContainer">
         <div id='route-box'>
-            <div class='route' alt="map input and outpul fields moved to here" ></div></div>
-      
-            <input type="text" id="location" placeholder="your location" />
-     
-            <button id="getWeather">Check Weather</button>
-
+            <div class='route' alt="weather findings from search" ></div></div>
+            <div id="weather-checker">
+      <input type="text" id="location" placeholder= "Get Current Weather" />
+      <button id="getWeather">Search</button>
     </div>
 
-    <br />
-    <!-- <div class="container" id="resultsHandler">
-      <div>Temperature: <span id="temperature"></span></div>
-       <div> Humidity: <span id="humidity"></span>  </div>
-      <div>Visibility: <span id="visibility"></span></div>
-      <div>Rain: <span id="rain"></span></div>
-      
-    </div> -->
-  
-  <div id="workout-response"></div>
-</div>
-</div>
+    </div>
   </div>
-  <script src="assets/javascript/app.js" type="text/javascript"></script>
-  <script src="assets/javascript/map.js" type="text/javascript"></script>
+  
+
+
+  <!-- <img class="fixed-bottom" id="range" src="./assets/images/the-moon.png" alt="range" style="opacity:.2; "> -->
+	<img class="fixed-bottom" id="range" src="./assets/images/background-design-sea-scape-way-back.png" alt="range">
+
+	<img class="fixed-bottom" id="range" src="./assets/images/background-design-sea-scape-reverse.png" alt="range">
+
+	<img class="fixed-bottom" id="range" src="./assets/images/background-design-sea-scape.png" alt="range">
+  <div id="footer">© 2019 | Skunk Works Athletic</div>
+  <script src="./assets/javascript/app_js.js" type="text/javascript"></script>
+  <script src="./assets/javascript/map_js.js" type="text/javascript"></script>
 </body>
-
-
 
 
 
